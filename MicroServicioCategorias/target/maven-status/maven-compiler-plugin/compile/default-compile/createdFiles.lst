@@ -1,0 +1,8 @@
+com\mycompany\microserviciocategorias\resources\JakartaEE11Resource.class
+com\mycompany\microserviciocategorias\model\CategoriaDeServicio.class
+com\mycompany\microserviciocategorias\JakartaRestConfiguration.class
+com\mycompany\microserviciocategorias\service\CategoriaDeServicioService.class
+com\mycompany\microserviciocategorias\dao\CategoriaDeServicioDAO.class
+com\mycompany\microserviciocategorias\util\DatabaseUtil.class
+com\mycompany\microserviciocategorias\config\CorsFilter.class
+com\mycompany\microserviciocategorias\controller\CategoriaDeServicioController.class
