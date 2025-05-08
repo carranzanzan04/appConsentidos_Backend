@@ -1,0 +1,14 @@
+com\mycompany\microservicioservicios\model\Oferta.class
+com\mycompany\microservicioservicios\model\ServicioPorMascota.class
+com\mycompany\microservicioservicios\dao\ServicioPorMascotaDAO.class
+com\mycompany\microservicioservicios\service\ServicioService.class
+com\mycompany\microservicioservicios\model\Servicio.class
+com\mycompany\microservicioservicios\service\ServicioPorMascotaService.class
+com\mycompany\microservicioservicios\JakartaRestConfiguration.class
+com\mycompany\microservicioservicios\dao\OfertaDAO.class
+com\mycompany\microservicioservicios\dao\ServicioDAO.class
+com\mycompany\microservicioservicios\resources\JakartaEE11Resource.class
+com\mycompany\microservicioservicios\config\CorsFilter.class
+com\mycompany\microservicioservicios\service\OfertaService.class
+com\mycompany\microservicioservicios\util\DatabaseUtil.class
+com\mycompany\microservicioservicios\controller\ServicioController.class
