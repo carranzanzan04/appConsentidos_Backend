@@ -8,6 +8,7 @@ import com.mycompany.microserviciologin.model.*;
 import com.mycompany.microserviciologin.service.*;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -169,7 +170,7 @@ public class UserController {
         }
     }
 
-    @POST
+    @PUT
     @Path("/update/client")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -178,11 +179,9 @@ public class UserController {
             Integer id = (Integer) request.get("id");
             String tipo = (String) request.get("tipo");
             String correo = (String) request.get("correo");
-            String contrasena = (String) request.get("contrasena");
             String nid = (String) request.get("nid");
-            Boolean activo = (Boolean) request.get("activo");
-
-            if (id == null || tipo == null || correo == null || contrasena == null || nid == null || activo == null) {
+            if (id == null || tipo == null || correo == null  || nid == null ) {
+                System.out.println(id+" "+tipo+" "+ correo+" "+nid);
                 return Response.status(Response.Status.BAD_REQUEST)
                         .entity(Map.of("success", false, "message", "Faltan campos obligatorios"))
                         .build();
@@ -197,7 +196,12 @@ public class UserController {
                                 .entity(Map.of("success", false, "message", "Faltan campos obligatorios para Dueño"))
                                 .build();
                     }
-                    Dueno dueno = new Dueno(id, correo, contrasena, true, nid, null, LocalDateTime.now(), null, activo, nombreDueno, apellidoDueno);
+                    Dueno dueno = new Dueno();
+                    dueno.setId(id);
+                    dueno.setCorreo(correo);
+                    dueno.setNid(nid);
+                    dueno.setNombre(nombreDueno);
+                    dueno.setApellido(apellidoDueno);
                     duenoService.actualizarDueno(dueno);
                     break;
 
@@ -209,7 +213,12 @@ public class UserController {
                                 .entity(Map.of("success", false, "message", "Faltan campos obligatorios para Autónomo"))
                                 .build();
                     }
-                    Autonomo autonomo = new Autonomo(id, correo, contrasena, true, nid, null, LocalDateTime.now(), null, activo, nombreAutonomo, apellidoAutonomo);
+                    Autonomo autonomo = new Autonomo();
+                    autonomo.setId(id);
+                    autonomo.setCorreo(correo);
+                    autonomo.setNid(nid);
+                    autonomo.setNombre(nombreAutonomo);
+                    autonomo.setApellido(apellidoAutonomo);
                     autonomoService.actualizarAutonomo(autonomo);
                     break;
 
@@ -220,7 +229,11 @@ public class UserController {
                                 .entity(Map.of("success", false, "message", "Faltan campos obligatorios para Empresa"))
                                 .build();
                     }
-                    Empresa empresa = new Empresa(id, correo, contrasena, true, nid, null, LocalDateTime.now(), null, activo, nombreEmpresa);
+                    Empresa empresa = new Empresa();
+                    empresa.setId(id);
+                    empresa.setCorreo(correo);
+                    empresa.setNid(nid);
+                    empresa.setNombre(nombreEmpresa);
                     empresaService.actualizarEmpresa(empresa);
                     break;
 
@@ -238,7 +251,7 @@ public class UserController {
         }
     }
 
-    @POST
+    @PUT
     @Path("/update/staff")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -247,11 +260,10 @@ public class UserController {
             Integer id = (Integer) request.get("id");
             String tipo = (String) request.get("tipo");
             String correo = (String) request.get("correo");
-            String contrasena = (String) request.get("contrasena");
             String nid = (String) request.get("nid");
-            Boolean activo = (Boolean) request.get("activo");
+            
 
-            if (id == null || tipo == null || correo == null || contrasena == null || nid == null || activo == null) {
+            if (id == null || tipo == null || correo == null ||  nid == null ) {
                 return Response.status(Response.Status.BAD_REQUEST)
                         .entity(Map.of("success", false, "message", "Faltan campos obligatorios"))
                         .build();
@@ -266,7 +278,12 @@ public class UserController {
                                 .entity(Map.of("success", false, "message", "Faltan campos obligatorios para Administrador"))
                                 .build();
                     }
-                    Administrador administrador = new Administrador(id, correo, contrasena, true, nid, null, LocalDateTime.now(), null, activo, nombreAdmin, apellidoAdmin);
+                    Administrador administrador = new Administrador();
+                    administrador.setId(id);
+                    administrador.setCorreo(correo);
+                    administrador. setNid(nid);
+                    administrador.setNombre(nombreAdmin);
+                    administrador.setApellido(apellidoAdmin);
                     administradorService.actualizarAdministrador(administrador);
                     break;
 
@@ -278,7 +295,12 @@ public class UserController {
                                 .entity(Map.of("success", false, "message", "Faltan campos obligatorios para Atención al Cliente"))
                                 .build();
                     }
-                    AtencionAlCliente atencionAlCliente = new AtencionAlCliente(id, correo, contrasena, true, nid, null, LocalDateTime.now(), null, activo, nombreAtc, apellidoAtc);
+                    AtencionAlCliente atencionAlCliente = new AtencionAlCliente();
+                    atencionAlCliente.setId(id);
+                    atencionAlCliente.setCorreo(correo);
+                    atencionAlCliente.setNid(nid);
+                    atencionAlCliente.setNombre(nombreAtc);
+                    atencionAlCliente.setApellido(apellidoAtc);
                     atencionAlClienteService.actualizarAtencionAlCliente(atencionAlCliente);
                     break;
 

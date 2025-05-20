@@ -55,19 +55,16 @@ public class UsuarioDAO {
 
     // Nuevo método para actualizar un usuario
     public void actualizarUsuario(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuarios SET correo = ?, contrasena = ?, nid = ?, activo = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL";
+        String sql = "UPDATE usuarios SET correo = ?,  nid = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL";
         Connection con=null;
         try{
          con = DatabaseUtil.getConnection();
              try (PreparedStatement stmt = con.prepareStatement(sql)) {
             con.setAutoCommit(false);
             stmt.setString(1, usuario.getCorreo());
-            String hashedPassword = BCrypt.withDefaults().hashToString(12, usuario.getContrasena().toCharArray());
-            stmt.setString(2, hashedPassword);
-            stmt.setString(3, usuario.getNid());
-            stmt.setBoolean(4, usuario.isActivo());
-            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
-            stmt.setInt(6, usuario.getId());
+            stmt.setString(2, usuario.getNid());
+            stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setInt(4, usuario.getId());
 
             int affectedRows = stmt.executeUpdate();
             con.commit();
@@ -167,7 +164,7 @@ public class UsuarioDAO {
         return null;
     }
 
-    private Usuario findUserById(int id) throws SQLException {
+    public Usuario findUserById(int id) throws SQLException {
         String sqlUsuario = "SELECT * FROM usuarios WHERE id = ?";
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sqlUsuario)) {
@@ -219,7 +216,12 @@ public class UsuarioDAO {
             return stmt.executeQuery().next();
         }
     }
-
+    public void actualizarContrasena(String password){
+        
+    }
+    public void inhabilitarUsuario(){
+        
+    }
     private Administrador getAdministrador(int id, String correo, String contrasena, boolean confirmacion, String nid,
                                            LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, boolean activo,
                                            Connection conn) throws SQLException {

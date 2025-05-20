@@ -18,4 +18,7 @@ public class UsuarioService {
     public Usuario authenticate(String correo, String contrasena) throws SQLException {
         return usuarioDAO.authenticate(correo, contrasena);
     }
+   public Usuario obtenerUsuarioEspecifico(int id) throws SQLException{
+       return usuarioDAO.findUserById(id);
+   }
 }

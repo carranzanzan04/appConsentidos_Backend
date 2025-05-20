@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 
 public class AtencionAlCliente extends Persona {
 
+    public AtencionAlCliente() {
+    }
+
     
     public AtencionAlCliente(int id, String correo, String contrasena, boolean confirmacion, String nid,
                              LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, boolean activo,

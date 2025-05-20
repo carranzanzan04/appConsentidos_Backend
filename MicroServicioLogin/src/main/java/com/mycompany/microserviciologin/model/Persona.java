@@ -15,6 +15,9 @@ public abstract class Persona extends Usuario {
     private String nombre;
     private String apellido;
 
+    public Persona() {
+    }
+     
     public Persona(int id, String correo, String contrasena, boolean confirmacion, String nid,
                    LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, boolean activo,
                    String nombre, String apellido) {

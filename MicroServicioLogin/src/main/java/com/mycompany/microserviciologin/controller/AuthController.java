@@ -27,9 +27,10 @@ import java.util.Map;
 public class AuthController {
    
     private final UsuarioService usuarioService;
+    private final UsuarioDAO usuariodao;
 
     public AuthController() {
-         UsuarioDAO usuariodao=new UsuarioDAO();
+         this.usuariodao=new UsuarioDAO();
         this.usuarioService = new UsuarioService(usuariodao);
     }
 
@@ -44,14 +45,73 @@ public class AuthController {
 
         try {
             Usuario usuario = usuarioService.authenticate(correo, contrasena);
+             
             if (usuario != null) {
-                Map<String, Object> response = new HashMap<>();
-                response.put("success", true);
-                response.put("message", "Autenticación exitosa");
-                response.put("id", usuario.getId());
-                response.put("role", getUserRole(usuario));
-                response.put("correo", usuario.getCorreo());
-                System.out.println("Autenticación REST exitosa para: " + correo);
+                 Map<String, Object> response = new HashMap<>();
+                   if(getUserRole(usuario).equals("autonomo")||getUserRole(usuario).equals("dueno")||getUserRole(usuario).equals("administrador")||getUserRole(usuario).equals("atencion_al_cliente")||getUserRole(usuario).equals("empresa")){
+                       switch (getUserRole(usuario)) {
+                           case "administrador" -> {
+                                 Administrador adm= (Administrador )usuarioService.obtenerUsuarioEspecifico(usuario.getId());
+                                 response.put("success", true);
+                                 response.put("message", "Autenticación exitosa");
+                                 response.put("id", usuario.getId());
+                                 response.put("role", getUserRole(usuario));
+                                 response.put("correo", usuario.getCorreo());
+                                 response.put("nombre", adm.getNombre());
+                                 response.put("apellido", adm.getApellido());
+                                 System.out.println("Autenticación REST exitosa para: " + correo+":emprea"+adm.getNombre());
+                           }
+                           case "atencion_al_cliente" -> {
+                                    AtencionAlCliente atc= (AtencionAlCliente )usuarioService.obtenerUsuarioEspecifico(usuario.getId());
+                                 response.put("success", true);
+                                 response.put("message", "Autenticación exitosa");
+                                 response.put("id", usuario.getId());
+                                 response.put("role", getUserRole(usuario));
+                                 response.put("correo", usuario.getCorreo());
+                                 response.put("nombre", atc.getNombre());
+                                 response.put("apellido",atc.getApellido());
+                                 System.out.println("Autenticación REST exitosa para: " + correo+":emprea"+atc.getNombre());
+                           }
+                           case "autonomo" -> {
+                                 Autonomo aut =(Autonomo) usuarioService.obtenerUsuarioEspecifico(usuario.getId());
+                            
+                                 response.put("success", true);
+                                 response.put("message", "Autenticación exitosa");
+                                 response.put("id", usuario.getId());
+                                 response.put("role", getUserRole(usuario));
+                                 response.put("correo", usuario.getCorreo());
+                                 response.put("nombre", aut.getNombre());
+                                 response.put("apellido", aut.getApellido());
+                                 System.out.println("Autenticación REST exitosa para: " + correo+":autonomo"+aut.getNombre() );
+                           }
+                           case "dueno" -> {
+                                   Dueno duen =(Dueno)usuarioService.obtenerUsuarioEspecifico(usuario.getId());
+                                   response.put("success", true);
+                                   response.put("message", "Autenticación exitosa");
+                                   response.put("id", usuario.getId());
+                                   response.put("role", getUserRole(usuario));
+                                   response.put("correo", usuario.getCorreo());
+                                   response.put("nombre", duen.getNombre());
+                                   response.put("apellido", duen.getApellido());
+                                   System.out.println("Autenticación REST exitosa para: " + correo+":dueno"+duen.getNombre());
+                           }
+                                
+                           case "empresa" -> {
+                                 Empresa emp= (Empresa )usuarioService.obtenerUsuarioEspecifico(usuario.getId());
+                                 response.put("success", true);
+                                 response.put("message", "Autenticación exitosa");
+                                 response.put("id", usuario.getId());
+                                 response.put("role", getUserRole(usuario));
+                                 response.put("correo", usuario.getCorreo());
+                                 response.put("nombre", emp.getNombre());
+                                 System.out.println("Autenticación REST exitosa para: " + correo+":emprea"+emp.getNombre());
+                           }
+
+                           default -> throw new AssertionError();
+                       }
+                       
+                   }
+                
                 return Response.ok(response).build();
             } else {
                 System.out.println("Autenticación REST fallida para: " + correo);

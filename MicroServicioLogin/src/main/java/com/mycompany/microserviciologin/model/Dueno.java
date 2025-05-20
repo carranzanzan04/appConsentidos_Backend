@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 public class Dueno extends Cliente {
     private String nombre;
     private String apellido;
+
+    /**
+     *
+     */
     public Dueno(){
         
     }
@@ -20,6 +24,7 @@ public class Dueno extends Cliente {
         this.nombre = nombre;
         this.apellido = apellido;
     }
+  
 
     // Getters y Setters
     public String getNombre() { return nombre; }
